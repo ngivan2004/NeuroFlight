@@ -10,17 +10,19 @@ total_rows = sum(1 for _ in open('./data/itineraries.csv', 'r')
 progress_bar = tqdm(total=total_rows, desc="Processing Chunks")
 
 for chunk in pd.read_csv('./data/itineraries.csv', chunksize=chunk_size):
-    chunk = chunk[chunk['isNonStop']]  # Filter non-stop flights
-    chunk = chunk[~chunk['isBasicEconomy']]  # ..
-    chunk = chunk[~chunk['isRefundable']]  # ..
-    chunk = chunk[chunk['segmentsCabinCode'] == 'coach']  # ..
+    # chunk[chunk['a']] means only keep things with a
+    chunk = chunk[chunk['isNonStop']]
+    # chunk[~chunk['a']] means only keep things that are not a (this is the first time i know how to use ~ lol)
+    chunk = chunk[~chunk['isBasicEconomy']]
+    chunk = chunk[~chunk['isRefundable']]
+    chunk = chunk[chunk['segmentsCabinCode'] == 'coach']
     chunk['searchDate'] = pd.to_datetime(chunk['searchDate'])
     chunk['flightDate'] = pd.to_datetime(chunk['flightDate'])
     chunk['daysUntilFlight'] = (
         chunk['flightDate'] - chunk['searchDate']).dt.days
     chunks.append(chunk)
 
-    # Update min_price_info with the minimum price and corresponding date for each legID
+    # we dont use enhancedlegid anymore cuz its not needed.
     for _, row in chunk.iterrows():
         leg_id = row['legId']
         total_fare = row['totalFare']
