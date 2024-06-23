@@ -24,7 +24,7 @@ def get_total_rows(file_path):
 
 
 # Get the total number of rows in the CSV file
-file_path = 'itineraries.csv'
+file_path = './data/processed_flights.csv'
 total_rows = get_total_rows(file_path)
 chunksize = 100000
 total_chunks = total_rows // chunksize + 1
@@ -48,5 +48,7 @@ missing_routes = all_possible_routes - dataset_routes
 
 
 missing_routes_list = list(missing_routes)
+print(len(all_possible_routes))
+print(len(dataset_routes))
 print(f'Total missing routes: {len(missing_routes_list)}')
 print(missing_routes_list)
