@@ -1,4 +1,5 @@
-# Best Time Flight Price Neural Network
+# Same Flight Different Price
+## Best Time Flight Price Neural Network
 
 ![image](https://github.com/ngivan2004/best-time-flight-price-neural-network/assets/61515871/f61a212c-3bed-4080-9935-7bf3267a965f)
 ![image](https://github.com/ngivan2004/best-time-flight-price-neural-network/assets/61515871/afc7b8cd-28cc-4e0f-afaf-70166bf54a6a)
