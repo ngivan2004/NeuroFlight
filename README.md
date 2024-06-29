@@ -1,5 +1,5 @@
 # SameFlightDiffPrice: Best Time Flight Price Neural Network
-## Live demo on https://aiflight.netlify.app/
+## Live demo: https://aiflight.netlify.app/
 
 ![Website](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/c5b7ead5-5ed9-4e59-bdde-3bd3b568f859)
 
@@ -155,7 +155,7 @@ The project features a responsive web interface for easy interaction with the mo
 
 ## Usage Guide
 
-**We have a live demo available on the website**, and I highly encourage you to check it out. If you cloned the repository, you can host it locally by following the steps below or use the Python inference GUI.
+**We have a live demo available at https://aiflight.netlify.app/**, and I highly encourage you to check it out. If you cloned the repository, you can host it locally by following the steps below or use the Python inference GUI.
 
 Cleaning and processing data can be quite a trial-and-error process, and my development journey was no exception. The initial stages were far from streamlined, and may not be as organized as they could be. You've been warned!
 
