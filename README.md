@@ -109,7 +109,7 @@ The classification model predicts whether the price trend is increasing, decreas
 
 ## Deployment
 
-To broaden my skills in back-end server work, I decided to create a back-end and front-end structure for this project. While it may not be strictly necessary—since I can run the model in the browser using ONNX.js, as I did in my previous MNIST project—I chose this approach to gain more experience.
+To broaden my skills in back-end server work, I decided to create a back-end and front-end structure for this project. While it may not be strictly necessary—since I can run the model in the browser using ONNX.js, as I did in my previous [MNIST project](https://github.com/ngivan2004/Handwriting-PyTorch-Neural-Network-RealTime)—I chose this approach to gain more experience.
 
 
 To implement this, I opted to use AWS and incorporated Docker for containerization.
