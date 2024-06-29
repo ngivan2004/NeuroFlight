@@ -65,6 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resultDiv.classList.add("fade-in");
 
+    // this is a function chatgpt gave me im still trying to understand it at this point i dont but ill make sure i do in the future.
+    //i just want cool numbers go up lol
+    function animateValue(element, start, end, duration, decimals) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        element.innerHTML = `${(start + progress * (end - start)).toFixed(
+          decimals
+        )}`;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
     let res = "";
     const totalFare = parseFloat(document.getElementById("totalFare").value);
     const predictedLowestPrice = parseFloat(data.predictedLowestPrice);
@@ -94,21 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
       comparisonText = "equal to";
     }
 
-    document.getElementById(
-      "predictedPrice"
-    ).innerHTML = `The current price is <strong>$${absPriceDifference.toFixed(
-      2
-    )} ${comparisonText} </strong> our predicted minimum ($${predictedLowestPrice.toFixed(
-      2
-    )}).`;
+    const predictedPriceElement = document.getElementById("predictedPrice");
+    predictedPriceElement.innerHTML = `The current price is <strong>$<span id="absPriceDifference">0.00</span> ${comparisonText} </strong> our predicted minimum ($<span id="predictedLowestPrice">0.00</span>).`;
 
     document.getElementById("priceTrend").innerHTML = res;
 
-    document.getElementById(
-      "confidenceText"
-    ).innerHTML = `The model is <strong>${parseFloat(data.confidence).toFixed(
-      2
-    )}%</strong> confident in this prediction.`;
+    const confidenceTextElement = document.getElementById("confidenceText");
+    confidenceTextElement.innerHTML = `The model is <strong><span id="confidenceValue">0.00</span>%</strong> confident in this prediction.`;
 
     const confidenceBarFill = document.getElementById("confidenceBarFill");
     confidenceBarFill.style.width = "0%";
@@ -120,6 +129,29 @@ document.addEventListener("DOMContentLoaded", () => {
       p.classList.add("slide-in");
       p.style.animationDelay = `${index * 0.1}s`;
     });
+
+    // Animate values
+    animateValue(
+      document.getElementById("absPriceDifference"),
+      0,
+      absPriceDifference,
+      1000,
+      2
+    );
+    animateValue(
+      document.getElementById("predictedLowestPrice"),
+      0,
+      predictedLowestPrice,
+      1000,
+      2
+    );
+    animateValue(
+      document.getElementById("confidenceValue"),
+      0,
+      parseFloat(data.confidence),
+      1000,
+      2
+    );
 
     const scrollingElement = document.scrollingElement || document.body;
     scrollingElement.scrollTop = scrollingElement.scrollHeight;
