@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Tickets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="github-button-top">
+      <a href="https://github.com/ngivan2004" target="_blank">
+        <img
+          src="github-mark-white.png"
+          alt="GitHub Icon"
+          class="github-icon"
+        />
+        ngivan2004</a
+      >
+    </div>
+    <div class="container">
+      <h1>Best Time to Buy Flight Tickets with Neural Networks ✈️</h1>
+      <form id="predictionForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="startingAirport">Origin:</label>
+            <select id="startingAirport" required>
+              <option value="" disabled selected>Select Origin Airpot</option>
+              <option value="ATL">ATL - Atlanta</option>
+              <option value="DFW">DFW - Dallas/Fort Worth</option>
+              <option value="DEN">DEN - Denver</option>
+              <option value="ORD">ORD - Chicago O'Hare</option>
+              <option value="LAX">LAX - Los Angeles</option>
+              <option value="CLT">CLT - Charlotte</option>
+              <option value="MIA">MIA - Miami</option>
+              <option value="JFK">JFK - New York JFK</option>
+              <option value="EWR">EWR - Newark</option>
+              <option value="SFO">SFO - San Francisco</option>
+              <option value="DTW">DTW - Detroit</option>
+              <option value="BOS">BOS - Boston</option>
+              <option value="PHL">PHL - Philadelphia</option>
+              <option value="LGA">LGA - New York LaGuardia</option>
+              <option value="IAD">IAD - Washington Dulles</option>
+              <option value="OAK">OAK - Oakland</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="destinationAirport">Destination:</label>
+            <select id="destinationAirport" required>
+              <option value="" disabled selected>
+                Select Destination Airpot
+              </option>
+              <option value="ATL">ATL - Atlanta</option>
+              <option value="DFW">DFW - Dallas/Fort Worth</option>
+              <option value="DEN">DEN - Denver</option>
+              <option value="ORD">ORD - Chicago O'Hare</option>
+              <option value="LAX">LAX - Los Angeles</option>
+              <option value="CLT">CLT - Charlotte</option>
+              <option value="MIA">MIA - Miami</option>
+              <option value="JFK">JFK - New York JFK</option>
+              <option value="EWR">EWR - Newark</option>
+              <option value="SFO">SFO - San Francisco</option>
+              <option value="DTW">DTW - Detroit</option>
+              <option value="BOS">BOS - Boston</option>
+              <option value="PHL">PHL - Philadelphia</option>
+              <option value="LGA">LGA - New York LaGuardia</option>
+              <option value="IAD">IAD - Washington Dulles</option>
+              <option value="OAK">OAK - Oakland</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="segmentsAirlineCode">Airline:</label>
+            <select id="segmentsAirlineCode" required>
+              <option value="AA">AA - American Airlines</option>
+              <option value="AS">AS - Alaska Airlines</option>
+              <option value="B6">B6 - JetBlue Airways</option>
+              <option value="DL">DL - Delta Air Lines</option>
+              <option value="F9">F9 - Frontier Airlines</option>
+              <option value="NK">NK - Spirit Airlines</option>
+              <option value="UA">UA - United Airlines</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="flightDate">Flight Date:</label>
+
+            <input type="date" id="flightDate" required />
+
+            <script>
+              const currentYear = new Date().getFullYear();
+
+              const minDate = `${currentYear}-04-16`;
+              const maxDate = `${currentYear}-10-05`;
+
+              const dateInput = document.getElementById("flightDate");
+              dateInput.setAttribute("min", minDate);
+              dateInput.setAttribute("max", maxDate);
+            </script>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="flightDuration">Flight Duration:</label>
+            <div class="duration-input">
+              <input
+                type="number"
+                id="travelDurationHours"
+                placeholder="HH"
+                min="0"
+                required
+              />
+              <span>:</span>
+              <input
+                type="number"
+                id="travelDurationMinutes"
+                placeholder="MM"
+                min="0"
+                max="59"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="totalFare">Current Listed Price (USD):</label>
+            <input type="number" id="totalFare" step="0.01" min="0" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <button type="button" id="sampleFlightButton" class="full-width">
+            Fill with Sample Flight
+          </button>
+        </div>
+        <button type="submit" id="predict-button">Predict</button>
+      </form>
+      <div id="result" class="result">
+        <div id="infoIcon" class="info-icon">
+          ⓘ
+          <span class="tooltip-text"
+            >Price prediction has a regression R<sup>2</sup> of 0.92.<br />
+            Purchase timing model is 88% accurate. <br />
+            These models do make errors and should be used with caution.</span
+          >
+        </div>
+
+        <h2>Prediction Result</h2>
+        <p id="predictedPrice"></p>
+        <p id="priceTrend"></p>
+        <p id="confidenceText"></p>
+        <div class="confidence-bar">
+          <div id="confidenceBarFill" class="confidence-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-spinner"></div>
+      <div class="loading-message">
+        <p>Processing your request with AWS Lambda...</p>
+        <p>
+          If you are the first person to use this in a while, it may take a few
+          seconds to cold start.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

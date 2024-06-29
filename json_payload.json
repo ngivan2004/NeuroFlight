@@ -1,0 +1,9 @@
+{
+  "startingAirport": "ATL",
+  "destinationAirport": "LAX",
+  "segmentsAirlineCode": "DL",
+  "travelDurationHours": 4,
+  "travelDurationMinutes": 30,
+  "totalFare": 300.0,
+  "flightDate": "20/07/2024"
+}

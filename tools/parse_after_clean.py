@@ -13,7 +13,7 @@ def parse_duration(duration):
 
 
 def parse_flight_date(date_str):
-    year = 2022  # As specified
+    year = 2022  # magic number for flight training data
     date = datetime.strptime(f"{year}-{date_str}", "%Y-%m-%d")
     return pd.Series([date.weekday(), date.day, date.month], index=['flightDayOfWeek', 'flightDayOfMonth', 'flightMonth'])
 
@@ -37,9 +37,8 @@ def process_large_csv(file_path, output_path, chunk_size=100000):
             pbar.update(1)
 
 
-# File paths
 input_file_path = './data/clean_iten.csv'
 output_file_path = './data/cleaner_iten.csv'
 
-# Process the large CSV
+
 process_large_csv(input_file_path, output_file_path)

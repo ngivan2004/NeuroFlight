@@ -1,0 +1,11 @@
+FROM public.ecr.aws/lambda/python:3.11
+
+COPY lambda_function.py ${LAMBDA_TASK_ROOT}
+COPY label_encoder.joblib ${LAMBDA_TASK_ROOT}
+COPY model_architecture_double_classification.py ${LAMBDA_TASK_ROOT}
+COPY models ${LAMBDA_TASK_ROOT}/models
+COPY preprocessor.joblib ${LAMBDA_TASK_ROOT}
+
+RUN pip install torch numpy joblib pandas scikit-learn
+
+CMD ["lambda_function.lambda_handler"]
