@@ -1,81 +1,197 @@
-# SameFlightDiffPrice
-## Best Time Flight Price Neural Network
+# SameFlightDiffPrice: Best Time Flight Price Neural Network
+## Live demo on https://aiflight.netlify.app/
 
-![image](https://github.com/ngivan2004/best-time-flight-price-neural-network/assets/61515871/f61a212c-3bed-4080-9935-7bf3267a965f)
-![image](https://github.com/ngivan2004/best-time-flight-price-neural-network/assets/61515871/afc7b8cd-28cc-4e0f-afaf-70166bf54a6a)
-
+![Website](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/c5b7ead5-5ed9-4e59-bdde-3bd3b568f859)
 
 
 ## Overview
+The SameFlightDiffPrice project predicts the best **time** to buy flight tickets at the **lowest** prices using a **Regression Model** and a **Classification Model**. It features a **web interface** and has a backend devleoped and hosted with **AWS Lambda and API Gateway**.
 
-The  project aims to predict the best time to purchase flight tickets at the lowest prices using a neural network model. The model is trained on a dataset scraped from Expedia, containing 82 million rows of flight ticket data between April 16, 2022, and October 5, 2022, for various major airports in the United States.
+
+
+## Key Features
+
+| **Feature**                     | **Description**                                                                                  |
+|---------------------------------|--------------------------------------------------------------------------------------------------|
+| **Dual Model Approach**         | - Regression model for minimum price prediction <br> - Classification model to determine if the minimum price is in the future or has passed  |
+| **Web Interface**               | User-friendly website for easy predictions and visualization                                     |
+| **AWS Backend**                 | Model deployment using AWS Lambda and API Gateway with REST API                                  |
+| **Accuracy**                    | - Regression model: R² = 0.92 <br> - Classification model: 88%                                      |
+| **Rate Limiting**               | Implemented to prevent API overuse and control costs                                             |
+| **TensorBoard Integration**     | For training visualization and analysis                                                          |
+
+
+
 
 ## Dataset
 
-The dataset used for this project was scraped from purchasable tickets found on Expedia. It included over 82 million searches on around 6 millions flights to and from major US airports and contains several key features:
+The project utilizes a comprehensive dataset scraped from Expedia, comprising over 82 million rows of flight ticket data. This data covers flights between April 16, 2022, and October 5, 2022, for major airports in the United States.
 
-- **legId**: An identifier for the flight.
-- **searchDate**: The date (YYYY-MM-DD) on which this entry was taken from Expedia.
-- **flightDate**: The date (YYYY-MM-DD) of the flight.
-- **startingAirport**: Three-character IATA airport code for the initial location.
-- **destinationAirport**: Three-character IATA airport code for the arrival location.
-- **travelDuration**: The travel duration in hours and minutes.
-- **isNonStop**: Boolean for whether the flight is non-stop.
-- **baseFare**: The price of the ticket (in USD).
-- **totalFare**: The price of the ticket (in USD) including taxes and other fees.
-- **segmentsCabinCode**: Cabin class for each leg of the trip (e.g., "coach").
-- **segmentsAirlineCode**: Airline code of the flight.
+### Key Features in the Dataset:
+| **Field**               | **Description**                                       |
+|-------------------------|-------------------------------------------------------|
+| **legId**               | Unique identifier for each flight                     |
+| **searchDate**          | Date of the data entry (YYYY-MM-DD)                   |
+| **flightDate**          | Scheduled flight date (YYYY-MM-DD)                    |
+| **startingAirport**     | IATA code for departure airport                       |
+| **destinationAirport**  | IATA code for arrival airport                         |
+| **travelDuration**      | Flight duration in hours and minutes                  |
+| **isNonStop**           | Boolean indicating if the flight is direct            |
+| **baseFare**            | Base ticket price (USD)                               |
+| **totalFare**           | Total price including taxes and fees (USD)            |
+| **segmentsCabinCode**   | Class of travel (e.g., "coach")                       |
+| **segmentsAirlineCode** | Airline code                                          |
 
-- other columns were present but not important for this project and hence ommitted.
 
-### Data Preprocessing
+## Data Preprocessing
 
 The data underwent extensive cleaning and feature engineering:
 
-1. **Loading Data**: The dataset is loaded in chunks to handle its large size efficiently.
-2. **Filtering**: Rows are filtered to keep only non-stop, non-basic economy, non-refundable flights in the coach class.
-3. **Date Conversion**: The dates are stripped of their year (as it may be used to predict flights in future years) and a "day of week" feature is implemented to let the model pick up on price variations throughtout the week.
-4. **Calculating Days Until Flight**: A new feature representing the number of days until the flight from the search date is calculated.
-5. **Finding Minimum Prices**: The lowest price for each flight leg and the corresponding date are tracked and added as a column.
-7. **Calculating Lowest Price Day Left**: A new feature representing the number of days left until the flight at the lowest price is calculated.
-8. **Dropping Unnecessary Columns**: Several columns that are not required for the model are dropped.
-9. **Formatting Dates**: Dates are reformatted to remove the year, focusing on month and day only.
-10. **Scaling Data**: The input data is scaled so it has a mean of 0.
-
-## Neural Network Model
-
-### Architecture
-
-The regression neural network is implemented using PyTorch and consists of the following layers:
-
-1. **Input Layer**: Accepts the input features.
-2. **Fully Connected Layers**: Four fully connected layers with ReLU activation functions.
-3. **Output Layer**: Produces two outputs - the lowest price and the lowest price day left.
-
-### Training
-
-The model is trained using the following steps:
-
-1. **Data Splitting**: The preprocessed data is loaded and split into training and testing sets.
-4. **Loss Function**: Mean Squared Error (MSE) loss function is used.
-5. **Optimizer**: AdamW optimizer with a learning rate scheduler is used.
-7. **Model Checkpointing**: Model weights are saved periodically during training.
-
-### Evaluation
-
-The trained model achieved an accuracy of 84% on the test data.
+| **Step**                              | **Description**                                                                                                 |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| **1. Loading Data**                   | The dataset is loaded in chunks to handle its large size efficiently.                                            |
+| **2. Filtering**                      | Rows are filtered to keep only non-stop, non-basic economy, non-refundable flights in the coach class.           |
+| **3. Date Conversion**                | Dates are stripped of their year and a "day of week" feature is implemented.                                     |
+| **4. Calculating Days Until Flight**  | A new feature representing the number of days until the flight from the search date is calculated.               |
+| **5. Finding Minimum Prices**         | The lowest price for each flight leg and the corresponding date are tracked and added as a column.               |
+| **6. Calculating Lowest Price Day Left** | A new feature representing the number of days left until the flight at the lowest price is calculated.         |
+| **7. Dropping Unnecessary Columns**   | Several columns that are not required for the model are dropped.                                                 |
+| **8. Formatting Dates**               | Dates are reformatted to remove the year, focusing on month and day only.                                        |
+| **9. Price Trend Classification**     | A new feature is created, classifying each row as "Not yet lowest" or "Already lowest".                          |
+| **10. Feature Selection**             | - Categorical features: 'startingAirport', 'destinationAirport', 'segmentsAirlineCode'                           |
+|                                       | - Numeric features: 'travelDuration', 'totalFare', 'daysUntilFlight', 'flightDayOfWeek', 'flightDayOfMonth', 'flightMonth' |
+| **11. Feature Preprocessing**         | - Categorical features: One-hot encoded using scikit-learn's OneHotEncoder                                       |
+|                                       | - Numeric features: Standardized using scikit-learn's StandardScaler                                             |
+| **12. Target Variable Preparation**   | - Regression target (y1): 'lowestPrice'                                                                          |
+|                                       | - Classification target (y2): 'price_trend' (encoded using LabelEncoder)                                         |
+| **13. Data Splitting**                | The preprocessed data is split into training and testing sets.                                                   |
+| **14. Preprocessing Model Persistence** | The preprocessor and label encoder are saved using joblib for later use during inference.                      |
 
 
-### Inference
+## Model Architecture
 
-The user finds a flight online and see the current price listed, then enter the information into the model. The model will give a predicted lowest price and als give the date that the ticket is at its lowest price.
+The project uses two separate neural network models: one for regression (price prediction) and one for classification (price trend prediction). Both models are implemented using PyTorch.
 
-## Extra
+### Regression Model (RegressionNNPrice)
 
-The dataset used to train this model can be found here: https://github.com/dilwong/FlightPrices
+The regression model predicts the lowest price for a given flight. Its architecture is as follows:
+
+| **Layer**            | **Description**                                                                 |
+|----------------------|---------------------------------------------------------------------------------|
+| **Input layer**      | Dimension matches the preprocessed feature space                                |
+| **Hidden layers**    | Six fully connected layers with dimensions: 512 → 256 → 128 → 64 → 32 → 1       |
+| **Batch normalization** | Applied after each layer (except the output layer)                           |
+| **Activation function** | ReLU activation after each layer (except the output layer)                   |
+| **Dropout**          | Dropout (p=0.1) applied after each hidden layer for regularization              |
+
+*(I am aware that this is extremely overkill, I was just experimenting with different structures, and there did not seem to be any overfitting issues)*
+### Classification Model (ClassificationNNTrend)
+
+The classification model predicts whether the price trend is increasing, decreasing, or stable. Its architecture is as follows:
+
+| **Layer**            | **Description**                                                                 |
+|----------------------|---------------------------------------------------------------------------------|
+| **Input layer**      | Dimension matches the preprocessed feature space                                |
+| **Hidden layers**    | Seven fully connected layers with dimensions: 512 → 256 → 128 → 64 → 32 → 16 → 3|
+| **Batch normalization** | Applied after each layer (except the output layer)                           |
+| **Activation function** | ReLU activation after each layer (except the output layer)                   |
+| **Dropout**          | Dropout (p=0.1) applied after each hidden layer for regularization              |
+
+*(I am also aware that this is extremely overkill, I was just experimenting with different structures, and there did not seem to be any overfitting issues)*
+## Training
+
+| **Component**           | **Description**                                                                                         |
+|-------------------------|---------------------------------------------------------------------------------------------------------|
+| **Optimizer**           | Adam optimizer is used for both models.                                                                 |
+| **Loss Functions**      | Regression Model: Mean Squared Error (MSE) loss <br> Classification Model: Cross-Entropy loss           |
+| **Model Checkpointing** | The model weights for each epoch are saved during training for later use in inference.                  |
+
+
+## Deployment
+
+To broaden my skills in back-end server work, I decided to create a back-end and front-end structure for this project. While it may not be strictly necessary—since I can run the model in the browser using ONNX.js, as I did in my previous MNIST project—I chose this approach to gain more experience.
+
+
+To implement this, I opted to use AWS and incorporated Docker for containerization.
+
+| **Component**               | **Description**                                                                                       |
+|-----------------------------|-------------------------------------------------------------------------------------------------------|
+| **AWS Lambda**              | - Serverless functions for model inference. <br> - Used Docker to create image for Lambda function. <br> - Separate functions for regression and classification models. |
+| **API Gateway**             | - RESTful API endpoints for model access with CORS implementation.                                    |
+| **Rate Limiting**           | - Prevents API abuse and controls costs. <br> - Implemented at the API Gateway level.                 |
+
+
+## Web Interface
+
+The project features a responsive web interface for easy interaction with the models. Try it out on https://aiflight.netlify.app/
+
+
+
+
+## Performance Metrics
+
+- **Regression Model**: 
+  - R² (Coefficient of Determination): 0.92
+  - ![Regression Model](model1.png) *(n=500)*
+
+- **Classification Model**:
+  - Accuracy: 88%
+  - ![Classification Model](model2.png) Note that "lowest already" in here means that the current price is the minimum, or that the minimum is in the past; and "not yet lowest" means the minimum is in the future. *(n=500)*
+  - Confusion Matrix:<br>
+    ![Confusion Matrix](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/2380d9c4-5924-4ab1-81a6-1f3ada815de6) *(n=500)*
+
 
 
 ## Limitations
 
+| **Aspect**            | **Details**                                                                                                                                       |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Date Range**        | The model is trained on data from April to October 2022, which may limit its accuracy for other periods. Hence we also placed a limit on the date range when in inference to prevent unreasonable outputs. We hope that this issue affects the date range but not too much on accuracy, as we also engineered a "day of week" feature to try and counter that effect across years. |
+| **Geographic Scope**  | Currently focuses on major US airports only.                                                                                                      |
+| **Airline Coverage**  | May not include all airlines or special fare classes.                                                                                             |
+| **External Factors**  | Does not account for unpredictable events (e.g., pandemics, major policy changes, infation).                                                                |
 
-The model is trained on a dataset collected from Expedia between April 16, 2022, and October 5, 2022. As a result, any input data outside of this time span may produce unreasonable or unexplainable outputs, such as negative prices. While during training, the year is stripped from the data and a "day of week" feature is added to account for day of week price differences(e.g. weekend flights), it does not account for events or patterns that occur outside the training period, such as the Christmas peak season. Therefore, predictions for dates or scenarios not represented in the training data, as with all predictions generated by this model, should be interpreted with caution.
+
+
+## Usage Guide
+
+**We have a live demo available on the website**, and I highly encourage you to check it out. If you cloned the repository, you can host it locally by following the steps below or use the Python inference GUI.
+
+Cleaning and processing data can be quite a trial-and-error process, and my development journey was no exception. The initial stages were far from streamlined, and may not be as organized as they could be. You've been warned!
+
+To run the website locally, follow these steps:
+
+1. **Set up a Python server in the website subdirectory.**
+2. **Navigate to `index.html`.**
+
+You can also try out the Python inference GUI by running `inference_double_classification.py` after installing all the libraries needed in requirements.txt.
+
+You can review the code for the Lambda functions in the `aws_lambda_backend` folder, which contains the necessary files and the Dockerfile used to create the image.
+
+If you want to train the model, follow these steps:
+
+**Warning:** Before proceeding, please note that the process of training the model can be quite messy. The initial stages were far from streamlined, and things were often not as organized as they could be. Even with these instructions, things may still not work as expected. Proceed with caution!
+
+1. **Install the required packages:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+1. **Obtain the dataset and place it in a `data` folder.**
+2. **Move the following scripts from the `tools` folder to the main directory:**
+   - `clean_up.py`
+   - `parse_after_clean.py`
+   - `fix_imbalance.py`
+3. **Run the scripts in order:**
+   - `clean_up.py`
+   - `parse_after_clean.py`
+   - `fix_imbalance.py`
+   - `train_model_double_classification.py`
+
+Additionally, you can run evaluations using `eval_double_classification.py`.
+
+Explore the `tools` folder for some neat scripts, which may or may not have been used in production.
+
+
+## Acknowledgements
+
+- Dataset source: [FlightPrices by dilwong](https://github.com/dilwong/FlightPrices)
