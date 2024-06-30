@@ -1,11 +1,11 @@
-# SameFlightDiffPrice: Best Time Flight Price Neural Network
+# FlySmart: AI-Powered Fare Saver for Price Trend and Lowest Price Prediction with Neural Network
 ## Live demo: https://aiflight.netlify.app/
 
 ![Website](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/c5b7ead5-5ed9-4e59-bdde-3bd3b568f859)
 
 
 ## Overview
-The SameFlightDiffPrice project predicts the best **time** to buy flight tickets at the **lowest** prices using a **Regression Model** and a **Classification Model**. It features a **web interface** and has a backend devleoped and hosted with **AWS Lambda and API Gateway**.
+The FlySmart project predicts the best **time** to buy flight tickets at the **lowest** prices using a **Regression Model** and a **Classification Model**. It features a **web interface** and has a backend devleoped and hosted with **AWS Lambda and API Gateway**.
 
 
 
@@ -136,7 +136,7 @@ The project features a responsive web interface for easy interaction with the mo
 
 - **Classification Model**:
   - Accuracy: 88%
-  - ![Classification Model](model2.png) Note that "lowest already" in here means that the current price is the minimum, or that the minimum is in the past; and "not yet lowest" means the minimum is in the future. *(n=300)*
+  - ![Classification Model](model2.png) Note that "Already lowest" in here means that the current price is the minimum, or that the minimum is in the past; and "Not yet lowest" means the minimum is in the future. *(n=300)*
   - Confusion Matrix:<br>
     ![Confusion Matrix](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/2380d9c4-5924-4ab1-81a6-1f3ada815de6) *(n=300)*
 
