@@ -1,11 +1,13 @@
-# FlySmart: Flight Price Trend and Lowest Price Prediction with Neural Network
+# NeuroFlight: Predict Price Trends & Lowest Fares via Neural Networks
+
 ## Live demo: https://aiflight.netlify.app/
 
-![Website](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/c5b7ead5-5ed9-4e59-bdde-3bd3b568f859)
+![Website](https://github.com/ngivan2004/FlySmart-NeuralNetworks/assets/61515871/6bb04f3c-81a9-4455-b788-23c056134cd8)
+
 
 
 ## Overview
-The FlySmart project predicts the best **time** to buy flight tickets at the **lowest** prices using a **Regression Model** and a **Classification Model**. It features a **web interface** and has a backend devleoped and hosted with **AWS Lambda and API Gateway**.
+The Neuroflight project predicts the best **time** to buy flight tickets at the **lowest** prices using a **Regression Model** and a **Classification Model**. It features a **web interface** and has a backend devleoped and hosted with **AWS Lambda and API Gateway**.
 
 
 
