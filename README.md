@@ -132,13 +132,13 @@ The project features a responsive web interface for easy interaction with the mo
 
 - **Regression Model**: 
   - R² (Coefficient of Determination): 0.92
-  - ![Regression Model](model1.png) *(n=500)*
+  - ![Regression Model](model1.png) *(n=300)*
 
 - **Classification Model**:
   - Accuracy: 88%
-  - ![Classification Model](model2.png) Note that "lowest already" in here means that the current price is the minimum, or that the minimum is in the past; and "not yet lowest" means the minimum is in the future. *(n=500)*
+  - ![Classification Model](model2.png) Note that "lowest already" in here means that the current price is the minimum, or that the minimum is in the past; and "not yet lowest" means the minimum is in the future. *(n=300)*
   - Confusion Matrix:<br>
-    ![Confusion Matrix](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/2380d9c4-5924-4ab1-81a6-1f3ada815de6) *(n=500)*
+    ![Confusion Matrix](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/2380d9c4-5924-4ab1-81a6-1f3ada815de6) *(n=300)*
 
 
 
