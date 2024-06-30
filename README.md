@@ -1,4 +1,4 @@
-# FlySmart: AI-Powered Fare Saver for Price Trend and Lowest Price Prediction with Neural Network
+# FlySmart: Flight Price Trend and Lowest Price Prediction with Neural Network
 ## Live demo: https://aiflight.netlify.app/
 
 ![Website](https://github.com/ngivan2004/same-flight-diff-price-neural-network/assets/61515871/c5b7ead5-5ed9-4e59-bdde-3bd3b568f859)
