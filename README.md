@@ -117,7 +117,7 @@ To implement this, I opted to use AWS and incorporated Docker for containerizati
 | **Component**               | **Description**                                                                                       |
 |-----------------------------|-------------------------------------------------------------------------------------------------------|
 | **AWS Lambda**              | - Serverless functions for model inference. <br> - Used Docker to create image for Lambda function. <br> - Separate functions for regression and classification models. |
-| **API Gateway**             | - RESTful API endpoints for model access with CORS implementation.                                    |
+| **API Gateway**             | - REST API endpoints for model access with CORS implementation.                                    |
 | **Rate Limiting**           | - Prevents API abuse and controls costs. <br> - Implemented at the API Gateway level.                 |
 
 
