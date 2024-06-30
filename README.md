@@ -1,6 +1,6 @@
 # NeuroFlight: Predict Price Trends & Lowest Fares via Neural Networks
 
-## Live demo: https://aiflight.netlify.app/
+## Live demo: https://neuroflight.netlify.app/
 
 ![Website](https://github.com/ngivan2004/FlySmart-NeuralNetworks/assets/61515871/6bb04f3c-81a9-4455-b788-23c056134cd8)
 
