@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     travelDurationHours: 6,
     travelDurationMinutes: 30,
     totalFare: 299.99,
-    flightDate: "2024-07-15",
+    flightDate: "2024-10-15",
   };
 
   function fillSampleFlight() {

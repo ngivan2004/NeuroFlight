@@ -12,6 +12,8 @@ json_data = {
     "flightDate": "20/07/2024"
 }
 
+
+
 response = requests.get(url, json=json_data, headers={
     'Content-Type': 'application/json'})
 
